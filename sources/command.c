@@ -25,11 +25,15 @@ void		referee_setpawn(t_play *play,
     }
   else
     {
-      if (id == 1)
-	dprintf(play->fd_player_1, "ERROR\n");
-      else
-	dprintf(play->fd_player_2, "ERROR\n");
+      return ;
     }
+  /* else */
+  /*   { */
+  /*     if (id == 1) */
+  /* 	dprintf(play->fd_player_1, "ERROR\n"); */
+  /*     else */
+  /* 	dprintf(play->fd_player_2, "ERROR\n"); */
+  /*   } */
   tmp = checkEaten(play->board);
   while (tmp)
     {
