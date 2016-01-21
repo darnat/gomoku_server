@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "struct_team.h"
+#include "struct_pawn.h"
+#include "struct_board.h"
 #include "struct_play.h"
 #include "struct_server.h"
 #include "init.h"

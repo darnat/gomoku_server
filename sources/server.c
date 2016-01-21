@@ -8,9 +8,13 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <errno.h>
+#include "struct_team.h"
+#include "struct_pawn.h"
+#include "struct_board.h"
 #include "struct_play.h"
 #include "struct_server.h"
 #include "server.h"
+#include "command.h"
 
 void		disconnect_client(t_play *play, t_server *server)
 {
@@ -60,10 +64,7 @@ int		receive_data(t_play **play, t_server *server, int id)
       *play = server->plays;
       return (0);
     }
-  if (id == 1)
-    write((*play)->fd_player_2, buff, len);
-  else
-    write((*play)->fd_player_1, buff, len);
+  interprete_command(*play, buff, len, id);
   return (0);
 }
 
@@ -177,6 +178,7 @@ int			accept_client(t_server *server)
     }
   new->fd_player_2 = -1;
   new->player_number = 1;
+  new->board = NULL;
   printf("New connection %s\n", inet_ntoa(s_in.sin_addr));
   tmp = server->plays;
   new->next = tmp;
@@ -201,10 +203,10 @@ int		handle_clients(t_server *server, fd_set *readfs)
   tmp = server->plays;
   while (tmp)
     {
-      if (FD_ISSET(tmp->fd_player_1, readfs))
+      if (tmp && tmp->player_number > 1 && FD_ISSET(tmp->fd_player_1, readfs))
 	if (receive_data(&tmp, server, 1))
 	  return (1);
-      if (FD_ISSET(tmp->fd_player_2, readfs))
+      if (tmp && tmp->player_number > 1 && FD_ISSET(tmp->fd_player_2, readfs))
 	if (receive_data(&tmp, server, 2))
 	  return (1);
       if (tmp)

@@ -1,6 +1,6 @@
 SRC			= $(filter-out %~, $(shell ls sources))
 
-CFLAGS			= -W -Werror -Wall -Wextra -pedantic -g -I headers
+CFLAGS			= -W -Werror -Wall -Wextra -pedantic -g -I headers -I gomoku_ai/headers
 
 OBJ			= $(addprefix objects/,$(SRC:.c=.o))
 

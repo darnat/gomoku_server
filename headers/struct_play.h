@@ -6,6 +6,7 @@ typedef struct		s_play
   int			player_number;
   int			fd_player_1;
   int			fd_player_2;
+  t_board		*board;
   struct s_play		*next;
 }			t_play;
 
