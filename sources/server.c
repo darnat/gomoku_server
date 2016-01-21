@@ -64,7 +64,10 @@ int		receive_data(t_play **play, t_server *server, int id)
       *play = server->plays;
       return (0);
     }
-  interprete_command(*play, buff, len, id);
+  if ((*play)->player_number > 1)
+	{
+  		interprete_command(*play, buff, len, id);
+	}
   return (0);
 }
 
@@ -203,10 +206,10 @@ int		handle_clients(t_server *server, fd_set *readfs)
   tmp = server->plays;
   while (tmp)
     {
-      if (tmp && tmp->player_number > 1 && FD_ISSET(tmp->fd_player_1, readfs))
+      if (tmp && FD_ISSET(tmp->fd_player_1, readfs))
 	if (receive_data(&tmp, server, 1))
 	  return (1);
-      if (tmp && tmp->player_number > 1 && FD_ISSET(tmp->fd_player_2, readfs))
+      if (tmp && FD_ISSET(tmp->fd_player_2, readfs))
 	if (receive_data(&tmp, server, 2))
 	  return (1);
       if (tmp)
