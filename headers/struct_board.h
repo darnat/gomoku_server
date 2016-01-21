@@ -18,6 +18,7 @@ typedef	struct		s_board
   t_pawn		*pawns;
   t_team		*teams;
   t_pawn		*lastp;
+  int       playing;
 }			t_board;
 
 int	setPawn(t_board *, int, int, int);

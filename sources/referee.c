@@ -113,6 +113,8 @@ int		setPawn(t_board *board, int x, int y, int id)
 {
   t_pawn	*tmp;
 
+  if (board->playing != id)
+    return (1);
   if (getPawnAt(board, x, y))
     return (1);
   if ((tmp = addPawnAt(board, x, y)) == NULL)
@@ -124,6 +126,9 @@ int		setPawn(t_board *board, int x, int y, int id)
       ptc('F');
       return (1);
     }
+  board->playing = 1;
+  if (id == 1)
+    board->playing = 2;
   board->lastp = tmp;
   return (0);
 }

@@ -45,6 +45,7 @@ t_board			*newBoard()
   tmp->width = 19;
   tmp->height = 19;
   tmp->pawns = NULL;
+  tmp->playing = 1;
   if ((tmp->teams = newTeams()) == NULL)
     return (NULL);
   return (tmp);

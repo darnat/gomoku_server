@@ -20,7 +20,7 @@ void		disconnect_client(t_play *play, t_server *server)
 {
   t_play	*tmp;
   t_play	*prev;
-  
+
   write(play->fd_player_1, "QUIT\n", 5);
   write(play->fd_player_2, "QUIT\n", 5);
   close(play->fd_player_1);
@@ -48,7 +48,7 @@ int		receive_data(t_play **play, t_server *server, int id)
   char		buff[512];
   int		len;
   int		fd;
-  
+
   memset(&(*buff), 0, 512);
   fd = (*play)->fd_player_1;
   if (id == 2)
@@ -65,9 +65,7 @@ int		receive_data(t_play **play, t_server *server, int id)
       return (0);
     }
   if ((*play)->player_number > 1)
-	{
-  		interprete_command(*play, buff, len, id);
-	}
+    interprete_command(*play, buff, len, id);
   return (0);
 }
 
@@ -77,7 +75,7 @@ void		close_all_sockets(t_server *server)
 
   plays = server->plays;
   if (close(server->fd_server) == -1)
-    fprintf(stderr, "Error : close : %s\n", strerror(errno));    
+    fprintf(stderr, "Error : close : %s\n", strerror(errno));
   while (plays)
     {
       if (close(plays->fd_player_1) == -1)
@@ -192,7 +190,7 @@ int			accept_client(t_server *server)
 int		handle_clients(t_server *server, fd_set *readfs)
 {
   t_play	*tmp;
-  
+
   set_clients(server, readfs);
   if (select(max_client_fd(server) + 1, readfs, NULL, NULL, NULL) == -1)
     {
